@@ -20,15 +20,21 @@
 	return "<script>alert('El usuario ha sido registrado :)');</script>";
 });*/
 
-#Route::controller("user", "UserController");
 Route::get('login', 'AuthController@get_login');
 Route::post('login', 'AuthController@post_login');
+
+#Route::post('user/created', 'UserController@post_create');
+#Route::get('user', 'UserController@get_index');
+
 Route::group(array('before' => 'auth'), function(){
+
 	Route::get('/', function(){
 		return View::make('hello');
 	});
-
-	Route::get('user', 'UserController@get_index');
-	Route::get('user/create', 'UserController@get_create');
+	Route::controller("user", "UserController");
+	#Route::get('user/create', 'UserController@get_create');
 	Route::get('user/update/{id}', "UserController@get_update");
+	Route::get('logout', 'AuthController@getLogout');
+	Route::get('user/create', 'UserController@get_create');
+	Route::get('user/delete/{id}', 'UserController@get_delete');
 });

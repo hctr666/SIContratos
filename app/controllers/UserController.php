@@ -27,7 +27,9 @@ class UserController extends BaseController
 		$user = new User;
 		$user->real_name = Input::get('txtname');
 		$user->email = Input::get('txtemail');
-		$user->password = Input::get('txtpass');
+		#$user->password = Input::get('txtpass');
+		$user->set_password(Input::get('txtpass'));
+		#$user->set_password(Input::get('txtpass'));
 		$user->save();
 		#get_index();
 		#return "el formulario ha sido posteado.";
@@ -79,6 +81,7 @@ class UserController extends BaseController
 
 		if (Input::has('password')) {
 			$user->password = Input::get('password');
+			$user->set_password($user->password);
 		}
 
 		$user->save();
